@@ -38,6 +38,10 @@ Activity.init(
             type: DataTypes.DECIMAL(10,2),
             allowNull: false
         },
+        effort_type_id: {
+            type: DataTypes.INTEGER,
+            allowNull: false
+        },
         type_id: {
             type: DataTypes.INTEGER,
             allowNull: false
