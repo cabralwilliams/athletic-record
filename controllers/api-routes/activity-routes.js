@@ -9,6 +9,10 @@ router.get("/", (req, res) => {
             {
                 model: User,
                 attributes: ["username"]
+            },
+            {
+                model: Split,
+                attributes: ['distance','duration','dist_type_id','group_id']
             }
         ]
     })

@@ -1,0 +1,43 @@
+<div class="flex-row space-evenly">
+    <div>
+        <h2>{{ formattedData.title }}</h2>
+        <h3>{{ actionStr }} on {{ formatDate formattedData.act_date }}</h3>
+        <div>
+            <i>{{ formattedData.description }}</i>
+        </div>
+        <div>
+            <h3>Activity Summary</h3>
+            <h4>Distance: {{ formattedData.activityStats.primary.distance }} {{ formattedData.activityStats.primary.unit1 }}</h4>
+            <h4>Time: {{ formatTime formattedData.duration }}</h4>
+            <h4>Pace: {{ formatTime formattedData.activityStats.primary.pace }} {{ formattedData.activityStats.primary.unit2 }}</h4>
+            <h3>Converted</h3>
+            <p>Distance: {{ formattedData.activityStats.secondary.distance }} {{ formattedData.activityStats.secondary.unit1 }} | Pace: {{ formatTime formattedData.activityStats.secondary.pace }} {{ formattedData.activityStats.secondary.unit2 }}</p>
+            <p>Distance: {{ formattedData.activityStats.tertiary.distance }} {{ formattedData.activityStats.tertiary.unit1 }} | Pace: {{ formatTime formattedData.activityStats.tertiary.pace }} {{ formattedData.activityStats.tertiary.unit2 }}</p>
+            <p>Distance: {{ formattedData.activityStats.quaternary.distance }} {{ formattedData.activityStats.quaternary.unit1 }} | Pace: {{ formatTime formattedData.activityStats.quaternary.pace }} {{ formattedData.activityStats.quaternary.unit2 }}</p>
+        </div>
+        {{#if formattedData.hasSplits }}
+            <div>
+                <h3>Splits</h3>
+            </div>
+            <ul class="no-type">
+                {{#each splitGroups }}
+                    <li>
+                        {{> split-mapping }}
+                    </li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
+    <div>
+        <h3>Comments</h3>
+        {{#each formattedData.comments }}
+            <div class="flex-column">
+                <p><i>{{comment_text}}</i></p>
+                <p>Posted by {{user.username}}</p>
+            </div>
+        {{/each}}
+    </div>
+</div>
+{{#if formattedData.hasSplits }}
+    <script src="/javascript/toggle.js"></script>
+{{/if}}

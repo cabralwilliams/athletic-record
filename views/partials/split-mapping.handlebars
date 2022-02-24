@@ -1,0 +1,20 @@
+<ol class="margin-left-small">
+    {{#each group}}
+        <li>
+            <p class="margin-bottom-tiny"><b>Distance: {{primary.distance}} {{primary.unit1}} | Pace: {{formatTime primary.pace}} {{primary.unit2}}</b></p>
+            <div class="controlled-div">
+                <div class="margin-bottom-tiny"><b class="convert-text">Conversions | </b><button class="site-btn-1">Expand</button></div>
+                <ul class="conversions-hidden">
+                    {{#each secondary}}
+                        <li class="no-type margin-left-tiny margin-bottom-tiny">
+                            Distance: {{distance}} {{unit1}} | Pace: {{#if formatTheTime }}{{formatTime pace}}{{else}}{{pace}}{{/if}} {{unit2}}
+                        </li>
+                    {{/each}}
+                </ul>
+            </div>
+        </li>
+    {{/each}}
+    {{!-- <div>Distance: {{ getMiles distance dist_type_id }} (miles)</div>
+    <div>Time: {{ formatTime duration }} per mile</div>
+    <div>Distance: {{ getKilometers distance dist_type_id }} (km)</div> --}}
+</ol>
