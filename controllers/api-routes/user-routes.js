@@ -62,35 +62,77 @@ router.post("/", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
+    //Allow user to use either username or email address to log in
+    const username = req.body.username;
     User.findOne({
-        where: { username: req.body.username }
+        where: { username: username }
     })
     .then(dbUserData => {
         if(!dbUserData) {
-            res.status(400).json({ message: 'Incorrect credentials, please try again.' });
-            return;
-        }
-        const validPassword = dbUserData.checkPassword(req.body.password);
+            console.log("Checking email!");
+            User.findOne({
+                where: { email: username }
+            })
+            .then(dbUserData2 => {
+                if(!dbUserData2) {
+                    res.status(400).json({ message: 'Incorrect credentials, please try again.' });
+                    return;
+                }
+                const validPassword = dbUserData2.checkPassword(req.body.password);
 
-        if(!validPassword) {
-            res.status(400).json({ message: 'Incorrect credentials, please try again.' });
-            return;
-        }
+                if(!validPassword) {
+                    res.status(400).json({ message: 'Incorrect credentials, please try again.' });
+                    return;
+                }
 
-        //Successful login
-        req.session.save(() => {
-            // declare session variables
-            req.session.user_id = dbUserData.id;
-            req.session.username = dbUserData.username;
-            req.session.loggedIn = true;
+                //Successful login
+                req.session.save(() => {
+                    // declare session variables
+                    req.session.user_id = dbUserData2.id;
+                    req.session.username = dbUserData2.username;
+                    req.session.loggedIn = true;
+            
+                    res.json({ user: dbUserData2, message: 'You are now logged in.' });
+                });
+                return;
+            })
+            .catch(err => {
+                console.log(err);
+                res.status(500).json(err);
+            });
+        } else {
+            const validPassword = dbUserData.checkPassword(req.body.password);
+
+            if(!validPassword) {
+                res.status(400).json({ message: 'Incorrect credentials, please try again.' });
+                return;
+            }
     
-            res.json({ user: dbUserData, message: 'You are now logged in.' });
-        });
+            //Successful login
+            req.session.save(() => {
+                // declare session variables
+                req.session.user_id = dbUserData.id;
+                req.session.username = dbUserData.username;
+                req.session.loggedIn = true;
+        
+                res.json({ user: dbUserData, message: 'You are now logged in.' });
+            });
+        }
     })
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
     });
-})
+});
+
+router.post("/logout", (req, res) => {
+    if(req.session.loggedIn) {
+        req.session.destroy(() => {
+            res.status(204).end();
+        });
+    } else {
+        res.status(404).end();
+    }
+});
 
 module.exports = router;

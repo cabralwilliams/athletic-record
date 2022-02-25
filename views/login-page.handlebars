@@ -1,5 +1,5 @@
 <div class="flex-column">
-    <h2 class="centered-text">Log In or Sign Up!</h2>
+    <h2 class="centered-text secondary-header">Log In or Sign Up!</h2>
     <div class="flex-row space-evenly margin-top-small">
         <div class="">
             <form id="login-form" class="flex-column bgColor6 padding-all-tiny box-shadow-tiny">
@@ -8,6 +8,7 @@
                 <label for="login-password"  class="margin-bottom-tiny form-label">Password</label>
                 <input type="password" id="login-password" name="login-password"  class="margin-bottom-tiny"/>
                 <button type="submit" class="site-btn-1">Log In!</button>
+                <div id="login-fail"></div>
             </form>
         </div>
         <div class="">
@@ -21,6 +22,7 @@
                 <label for="signup-password2" class="margin-bottom-tiny form-label">Re-enter Password</label>
                 <input type="password" id="signup-password2" name="signup-password2" class="margin-bottom-tiny" />
                 <button type="submit" class="site-btn-1">Sign Up!</button>
+                <div id="signup-fail"></div>
             </form>
         </div>
     </div>

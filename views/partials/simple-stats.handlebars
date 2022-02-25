@@ -1,0 +1,14 @@
+<div>
+    <div>
+        <a href="/dashboard/activity/{{ id }}">{{ title }} | {{ formatDate act_date }} | {{ activity_type }} - {{ distance }} {{ units }} | {{ formatTime duration }}</a>
+    </div>
+    <div>
+        <p>
+            {{#if hasSplits}}
+                Splits Provided!
+            {{else}}
+                No Splits Provided!
+            {{/if}}
+        </p>
+    </div>
+</div>

@@ -19,8 +19,10 @@ router.get("/", (req, res) => {
         });
         //console.log(activities);
         //console.log(typeof activities[0].act_date);
+        const loggedIn = req.session.loggedIn;
         res.render("home-page", {
-            activities
+            activities,
+            loggedIn
         });
     })
     .catch(err => {
@@ -31,7 +33,7 @@ router.get("/", (req, res) => {
 
 router.get("/login", (req, res) => {
     if(req.session.loggedIn) {
-
+        res.redirect("/dashboard");
     }
     res.render('login-page');
 })

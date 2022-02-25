@@ -83,6 +83,14 @@ a {
 .centered-text {
     text-align: center;
 }
+
+.secondary-header {
+    color: var(--color5);
+    font-size: 28px;
+    margin-top: 15px;
+    margin-bottom: 15px;
+    text-shadow: black 0.75px 0.75px 1.5px;
+}
 /* End text styling */
 
 /* Flex Styling */
@@ -137,6 +145,16 @@ a {
 }
 
 /* End spacing styles */
+
+/* Width Styles */
+.max-width400 {
+    max-width: 400px;
+}
+
+.max-width120 {
+    max-width: 120px;
+}
+/* End width styles */
 
 /* Coloring Styles */
 .bgColor6 {

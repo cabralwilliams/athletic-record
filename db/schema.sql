@@ -28,7 +28,7 @@ CREATE TABLE split (
     id INTEGER AUTO_INCREMENT PRIMARY KEY,
     distance DECIMAL(10,3) NOT NULL,
     duration DECIMAL(10,2) NOT NULL,
-    dist_id INTEGER NOT NULL,
+    dist_type_id INTEGER NOT NULL,
     group_id INTEGER NOT NULL,
     activity_id INTEGER NOT NULL,
     CONSTRAINT fk_activity FOREIGN KEY (activity_id) REFERENCES activity(id) ON DELETE CASCADE

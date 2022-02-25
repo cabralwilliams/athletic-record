@@ -1,0 +1,75 @@
+<div class="flex-column align-items-center margin-bottom-tiny">
+    <h2 class="secondary-header">Create Activity</h2>
+    <form class="bgColor6 padding-all-tiny box-shadow-tiny flex-column" id="create-form">
+        <div class="flex-column margin-bottom-tiny">
+            <label for="title" class="margin-bottom-tiny form-label">Title</label>
+            <input type="text" id="title" name="title" placeholder="Activity Title" class="max-width400" />
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <label for="description" class="margin-bottom-tiny form-label">Description</label>
+            <textarea id="description" name="description" placeholder="Enter a description of this activity." class="max-width400"></textarea>
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <label for="act_date" class="margin-bottom-tiny form-label">Activity Date</label>
+            <input type="date" id="act_date" name="act_date" class="max-width400" />
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <label for="distance" class="margin-bottom-tiny form-label">Distance</label>
+            <input type="number" name="distance" id="distance" step="0.001" class="max-width400" />
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <div class="margin-bottom-tiny form-label">Time</div>
+            <div class="flex-row">
+                <div class="flex-column">
+                    <label for="hours" class="margin-bottom-tiny form-label">Hours</label>
+                    <input type="number" min="0" step="1" name="hours" id="hours" class="max-width120" />
+                </div>
+                <div class="flex-column">
+                    <label for="minutes" class="margin-bottom-tiny form-label">Minutes</label>
+                    <input type="number" min="0" step="1" name="minutes" id="minutes" class="max-width120" />
+                </div>
+                <div class="flex-column">
+                    <label for="seconds" class="margin-bottom-tiny form-label">Seconds</label>
+                    <input type="number" min="0" step="0.01" name="seconds" id="seconds" class="max-width120" />
+                </div>
+            </div>
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <div class="margin-bottom-tiny form-label">Activity Type Details</div>
+            <div class="flex-row space-evenly">
+                <div class="flex-column">
+                    <label for="type_id" class="margin-bottom-tiny form-label">Activity Type</label>
+                    <select id="type_id" name="type_id">
+                        <option value="0">Run</option>
+                        <option value="1">Bike Ride</option>
+                        <option value="2">Swim</option>
+                        <option value="3">Walk</option>
+                        <option value="4">Hike</option>
+                    </select>
+                </div>
+                <div class="flex-column">
+                    <label for="dist_type_id" class="margin-bottom-tiny form-label">Distance Type</label>
+                    <select id="dist_type_id" name="dist_type_id">
+                        <option value="0">Miles</option>
+                        <option value="1">Kilometers</option>
+                        <option value="2">Meters</option>
+                        <option value="3">Yards</option>
+                    </select>
+                </div>
+                <div class="flex-column">
+                    <label for="effort_type_id" class="margin-bottom-tiny form-label">Effort Level</label>
+                    <select id="effort_type_id" name="effort_type_id">
+                        <option value="0">Easy</option>
+                        <option value="1">Hard</option>
+                        <option value="2">Race</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="hidden" id="user_id" name="user_id" value="{{ user_id }}" />
+        </div>
+        <button type="submit" class="site-btn-1">Create Activity!</button>
+    </form>
+</div>
+<script src="/javascript/createActivity.js"></script>

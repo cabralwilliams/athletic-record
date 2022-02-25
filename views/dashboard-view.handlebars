@@ -1,0 +1,10 @@
+<div>
+    <h2>Welcome, {{ username }}!</h2>
+    <h3>Your Activities</h3>
+    {{#each userData.activities }}
+        {{> simple-stats }}
+    {{/each}}
+    <div>
+        <a href="/dashboard/create">Create New Activity</a>
+    </div>
+</div>

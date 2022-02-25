@@ -3,3 +3,5 @@ DROP DATABASE IF EXISTS athletics_db;
 
 -- Add database
 CREATE DATABASE athletics_db;
+
+USE athletics_db;
