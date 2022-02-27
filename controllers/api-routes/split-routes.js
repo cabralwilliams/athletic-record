@@ -1,6 +1,7 @@
 //Import modules
 const router = require("express").Router();
 const { User, Activity, Split, Comment } = require("../../models");
+const authorize = require('../../lib/auth');
 
 router.get("/", (req, res) => {
     Split.findAll({
@@ -56,7 +57,7 @@ router.get("/:group_id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", authorize, (req, res) => {
     Split.findAll()
     .then(splitData => {
         let group_id;
@@ -82,6 +83,19 @@ router.post("/", (req, res) => {
             console.log(err);
             res.status(500).json(err);
         });
+    })
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
+});
+
+router.delete("/:activity_id", authorize, (req, res) => {
+    Split.destroy({
+        where: { activity_id: req.params.activity_id }
+    })
+    .then(dbResponse => {
+        res.json(dbResponse);
     })
     .catch(err => {
         console.log(err);

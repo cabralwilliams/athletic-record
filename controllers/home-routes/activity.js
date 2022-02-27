@@ -209,7 +209,7 @@ router.get('/:id', (req, res) => {
                 actionStr += "ran";
                 break;
         }
-        actionStr += ` ${displayData.activityStats.primary.distance}  ${displayData.activityStats.primary.unit1}`; 
+        actionStr += ` ${displayData.activityStats.primary.distance} ${displayData.activityStats.primary.unit1}`; 
         let splitGroups = { };
         for(let i = 0; i < formattedData.splits.length; i++) {
             let recorded = splitGroups.hasOwnProperty(`${formattedData.splits[i].group_id}`);

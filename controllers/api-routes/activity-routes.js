@@ -1,6 +1,7 @@
 //Import modules
 const router = require("express").Router();
 const { User, Activity, Split, Comment } = require("../../models");
+const authorize = require('../../lib/auth');
 
 //Get all activities
 router.get("/", (req, res) => {
@@ -64,7 +65,7 @@ router.get("/:id", (req, res) => {
     });
 });
 
-router.post("/", (req, res) => {
+router.post("/", authorize, (req, res) => {
     Activity.create({
         title: req.body.title,
         description: req.body.description,
@@ -84,5 +85,9 @@ router.post("/", (req, res) => {
         res.status(500).json(err);
     });
 });
+
+router.put("/:id", authorize, (req, res) => {
+    
+})
 
 module.exports = router;
