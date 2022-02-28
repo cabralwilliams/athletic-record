@@ -234,7 +234,7 @@ router.get('/:id', (req, res) => {
         // res.json(formattedData);
         // res.json(activityData);
         //code 0 = miles, code 1 = km, code 2 = meters, code 3 = yards
-        res.render('activity-view',{ formattedData: displayData, splitGroups: splitArrays, actionStr, loggedIn: req.session.loggedIn });
+        res.render('activity-view',{ formattedData: displayData, splitGroups: splitArrays, actionStr, loggedIn: req.session.loggedIn, user_id: req.session.user_id });
     })
     .catch(err => {
         console.log(err);

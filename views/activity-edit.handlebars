@@ -1,6 +1,6 @@
 <div class="flex-column align-items-center margin-bottom-tiny">
     <h2 class="secondary-header">Edit Activity</h2>
-    <h3><i>{{ activityInfo.actionStr }}</i></h3>
+    <h3 class="tertiary-header"><i>{{ activityInfo.actionStr }}</i></h3>
     <form class="bgColor6 padding-all-tiny box-shadow-tiny flex-column" id="edit-activity-form">
         <div class="flex-column margin-bottom-tiny">
             <label for="title" class="margin-bottom-tiny form-label">Title</label>
@@ -81,7 +81,10 @@
             {{> split-mapping }}
         {{/each}}
     </ul>
-    <i>Remember that if you upload new splits, these splits will be deleted.  If you wish to assign new splits and keep these splits, you will have to create a duplicated activity.</i>
+    <p class="width-40-big margin-bottom-tiny"><i>Remember that if you upload new splits, these splits will be deleted.  If you wish to assign new splits and keep these splits, you will have to create a duplicate activity.  You can also just delete these current splits with the button below.</i></p>
+    <form class="flex-column align-items-center" id="delete-splits">
+        <button class="site-btn-1">Delete Splits</button>
+    </form>
 </div>
     
 {{/if}}
@@ -147,12 +150,15 @@
             </form>
         </div>
         <div class="flex-column margin-left-small no-horizontal-margin">
-            <h3>Splits Registered</h3>
-            <div>
+            <h3 class="tertiary-header">Splits Registered</h3>
+            <div class="margin-bottom-tiny">
                 <button class="site-btn-1" id="clear-last">Clear Last</button>
                 <button class="site-btn-1" id="clear-all">Clear All</button>
             </div>
             <div id="splitsRegistered"></div>
+            <form id="splits-submit" class="padding-all-tiny flex-column">
+                <button type="submit" class="site-btn-1">Submit Splits!</button>
+            </form>
         </div>
     </div>
 </div>
@@ -164,4 +170,5 @@ Split Arrays: {{ stringifyData splitArrays }} --}}
 <script src="/javascript/editActivity.js"></script>
 {{#if activityInfo.hasSplits }}
 <script src="/javascript/toggle.js"></script>
+<script src="/javascript/deleteSplits.js"></script>
 {{/if}}

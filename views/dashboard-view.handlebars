@@ -1,10 +1,14 @@
-<div>
-    <h2>Welcome, {{ username }}!</h2>
-    <h3>Your Activities</h3>
-    {{#each userData.activities }}
-        {{> simple-stats }}
-    {{/each}}
-    <div>
-        <a href="/dashboard/create">Create New Activity</a>
+<div class="flex-column align-items-center">
+    <h2 class="secondary-header">Welcome, {{ username }}!</h2>
+    <div class="flex-row">
+        <div class="margin-right-small">
+            <h3 class="tertiary-header">Your Activities | <a href="/dashboard/create">Create New Activity</a></h3>
+            {{#each userData.activities }}
+                {{> simple-stats }}
+            {{/each}}
+        </div>
+        <div>
+            <h3 class="tertiary-header">You're Following...</h3>
+        </div>
     </div>
 </div>

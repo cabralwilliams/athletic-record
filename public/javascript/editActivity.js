@@ -90,6 +90,7 @@ const addSplit = (event) => {
     const newList = document.createElement("ol");
     for(let i = 0; i < splitStrings.length; i++) {
         const nextLi = document.createElement("li");
+        nextLi.className = "margin-bottom-tiny margin-left-small";
         nextLi.textContent = splitStrings[i];
         newList.appendChild(nextLi);
     }
@@ -120,3 +121,39 @@ const clearAll = () => {
 }
 
 document.querySelector("#clear-all").addEventListener("click", clearAll);
+
+async function updateSplitInfo(event) {
+    event.preventDefault();
+    const activity_id = parseInt(window.location.toString().split('/')[window.location.toString().split('/').length - 1]);
+    //Need to run two database queries - first, destroy the existing splits, and then create the new splits
+    //Only allow changes if there is actually split data in the array
+    if(splitData.length > 0) {
+        const response1 = await fetch(`/api/splits/${activity_id}`, {
+            method: "DELETE"
+        });
+        if(response1.ok) {
+            //Now save the new splits
+            //Add activity_id and group_id to splits to reflect database model
+            splitData = splitData.map(split => {
+                split.activity_id = activity_id;
+                split.group_id = 0;
+                return split;
+            });
+            const response2 = await fetch(`/api/splits`, {
+                method: "POST",
+                body: JSON.stringify({ splits: splitData }),
+                headers: { "Content-Type": "application/json" }
+            });
+
+            if(response2.ok) {
+                window.location.reload();
+            } else {
+                alert(`Split save failed: ${response2.statusText} - ${response2.status}`);
+            }
+        } else {
+            alert(`Split deletion failed: ${response1.statusText} - ${response1.status}`);
+        }
+    }
+}
+
+document.querySelector("#splits-submit").addEventListener("submit", updateSplitInfo);
