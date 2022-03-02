@@ -20,4 +20,4 @@ async function stopFollowing(event) {
     }
 }
 
-document.querySelector("#stoptFollowingForm").addEventListener("submit", stopFollowing);
+document.querySelector("#stopFollowingForm").addEventListener("submit", stopFollowing);
