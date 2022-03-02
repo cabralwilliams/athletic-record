@@ -1,5 +1,5 @@
 const sequelize = require('./config/connection');
-const { User, Activity, Split, Comment } = require('./models');
+const { User, Activity, Split, Comment, Follower } = require('./models');
 
 const users = [
     {
@@ -133,6 +133,29 @@ const comments = [
     }
 ];
 
+const followers = [
+    {
+        follower_id: 1,
+        followee_id: 2
+    },
+    {
+        follower_id: 2,
+        followee_id: 3
+    },
+    {
+        follower_id: 3,
+        followee_id: 4
+    },
+    {
+        follower_id: 4,
+        followee_id: 5
+    },
+    {
+        follower_id: 5,
+        followee_id: 1
+    }
+];
+
 const seedUsers = async () => {
     for(let i = 0; i < users.length; i++) {
         await User.create(users[i]);
@@ -141,6 +164,7 @@ const seedUsers = async () => {
 const seedActivities = () => Activity.bulkCreate(activities);
 const seedSplits = () => Split.bulkCreate(splits);
 const seedComments = () => Comment.bulkCreate(comments);
+const seedFollowers = () => Follower.bulkCreate(followers);
 
 const seedAll = async () => {
     await sequelize.sync({ force: true });
@@ -157,6 +181,9 @@ const seedAll = async () => {
 
     await seedComments();
     console.log('\n----- Comments Seeded -----\n');
+
+    await seedFollowers();
+    console.log('\n---- Followers Seeded -----\n');
 }
 
 seedAll();

@@ -9,6 +9,9 @@
         </div>
         <div>
             <h3 class="tertiary-header">You're Following...</h3>
+            {{#each userData.following }}
+                {{> following }}
+            {{/each}}
         </div>
     </div>
 </div>

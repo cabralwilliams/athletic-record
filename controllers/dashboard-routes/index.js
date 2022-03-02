@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const { User, Activity, Split, Comment } = require('../../models');
+const { User, Activity, Split, Comment, Follower } = require('../../models');
 const authorize = require('../../lib/auth');
 const helpers = require('../../lib/helpers');
 
@@ -17,6 +17,9 @@ router.get("/", authorize, (req, res) => {
                         attributes: ["group_id"]
                     }
                 ]
+            },
+            {
+                model: Follower
             }
         ]
     })
@@ -63,8 +66,22 @@ router.get("/", authorize, (req, res) => {
             }
             userData.activities[i].activity_type = actType;
         }
-        // console.log(userData);
-        res.render("dashboard-view", { username: req.session.username, loggedIn: true, userData });
+        let followeeIds = userData.followers.map(followee => followee.followee_id);
+        User.findAll({
+            where: {
+                id: followeeIds
+            },
+            attributes: ["username","id"]
+        })
+        .then(followeeData => {
+            userData.following = JSON.parse(JSON.stringify(followeeData));
+            console.log(userData);
+            res.render("dashboard-view", { username: req.session.username, loggedIn: true, userData });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
     })
     .catch(err => {
         console.log(err);

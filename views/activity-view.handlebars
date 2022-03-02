@@ -35,7 +35,7 @@
         {{#each formattedData.comments }}
             <div class="flex-column margin-bottom-tiny">
                 <blockquote class="description-blockquote">{{comment_text}}</blockquote>
-                <p class="p-detail">Posted by {{user.username}}</p>
+                <p class="p-detail">Posted by <a href="/users/{{user.id}}">{{user.username}}</a></p>
             </div>
         {{/each}}
         {{#if loggedIn }}
@@ -53,4 +53,7 @@
 </div>
 {{#if formattedData.hasSplits }}
     <script src="/javascript/toggle.js"></script>
+{{/if}}
+{{#if loggedIn }}
+    <script src="/javascript/addComment.js"></script>
 {{/if}}

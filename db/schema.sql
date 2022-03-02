@@ -1,3 +1,4 @@
+DROP TABLE IF EXISTS follower;
 DROP TABLE IF EXISTS comment;
 DROP TABLE IF EXISTS split;
 DROP TABLE IF EXISTS activity;
@@ -41,4 +42,12 @@ CREATE TABLE comment (
     activity_id INTEGER NOT NULL,
     CONSTRAINT fk_user_c FOREIGN KEY (user_id) REFERENCES user(id) ON DELETE CASCADE,
     CONSTRAINT fk_activity_c FOREIGN KEY (activity_id) REFERENCES activity(id) ON DELETE CASCADE
+);
+
+CREATE TABLE follower (
+    id INTEGER AUTO_INCREMENT PRIMARY KEY,
+    follower_id INTEGER NOT NULL,
+    followee_id INTEGER NOT NULL,
+    CONSTRAINT fk_follower FOREIGN KEY (follower_id) REFERENCES user(id) ON DELETE CASCADE,
+    CONSTRAINT fk_followee FOREIGN KEY (followee_id) REFERENCES user(id) ON DELETE CASCADE
 );

@@ -3,6 +3,7 @@ const User = require("./User");
 const Activity = require("./Activity");
 const Split = require("./Split");
 const Comment = require("./Comment");
+const Follower = require("./Follower");
 
 User.hasMany(Activity, {
     foreignKey: "user_id"
@@ -48,4 +49,24 @@ Activity.belongsToMany(User, {
     foreignKey: "activity_id"
 });
 
-module.exports = { User, Activity, Split, Comment };
+User.belongsToMany(User, {
+    through: Follower,
+    as: "followed_by",
+    foreignKey: "followee_id"
+});
+
+User.belongsToMany(User, {
+    through: Follower,
+    as: "following",
+    foreignKey: "follower_id"
+});
+
+User.hasMany(Follower, {
+    foreignKey: "follower_id"
+});
+
+Follower.belongsTo(User, {
+    foreignKey: "follower_id"
+});
+
+module.exports = { User, Activity, Split, Comment, Follower };

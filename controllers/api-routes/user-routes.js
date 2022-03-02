@@ -1,7 +1,8 @@
 //Import necessary modules
 const router = require("express").Router();
-const { User, Comment, Activity, Split } = require("../../models");
+const { User, Comment, Activity, Split, Follower } = require("../../models");
 const methods = require("../../lib/model-objects");
+const sequelize = require('sequelize');
 
 router.get("/", (req, res) => {
     User.findAll(
@@ -32,11 +33,36 @@ router.get("/:id", (req, res) => {
             {
                 model: Activity,
                 attributes: ["title","description","act_date","distance","duration","type_id","dist_type_id"]
+            },
+            {
+                model: Follower,
+                attributes: ["follower_id","followee_id"],
+                include: [
+                    {
+                        model: User,
+                        attributes: ["username"]
+                    }
+                ]
             }
         ]
     })
     .then(userData => {
-        res.json(userData);
+        const plainData = userData.get({ plain: true });
+        const followingIds = plainData.followers.map(rel => {
+            return rel.followee_id;
+        });
+        User.findAll({
+            where: { id: followingIds },
+            attributes: ["username","id"]
+        })
+        .then(followeeData => {
+            res.json({ userData: plainData, followeeData });
+        })
+        .catch(err => {
+            console.log(err);
+            res.status(500).json(err);
+        });
+        // res.json(userData);
     })
     .catch(err => {
         console.log(err);
