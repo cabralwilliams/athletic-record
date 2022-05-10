@@ -1,0 +1,12 @@
+<div class="flex-column align-items-center">
+    <h2 class="secondary-header">Welcome to the History Page!</h2>
+    <div class="flex-row">
+        <div class="margin-right-small">
+            <h3 class="tertiary-header">Notable Historic Performances</h3>
+            <p>Click to see more!</p>
+            {{#each historicEvents }}
+                {{> history-simple }}
+            {{/each}}
+        </div>
+    </div>
+</div>

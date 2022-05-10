@@ -1,0 +1,172 @@
+<div class="flex-column align-items-center margin-bottom-tiny">
+    <h2 class="secondary-header">Historical Activity Edit</h2>
+    <form class="bgColor6 padding-all-tiny box-shadow-tiny flex-column" id="edit-activity-form">
+        <div class="flex-column margin-bottom-tiny">
+            <label for="title" class="margin-bottom-tiny form-label">Title</label>
+            <input type="text" id="title" name="title" placeholder="{{ activityInfo.title }}" class="max-width400" value="{{ activityInfo.title }}" />
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <label for="description" class="margin-bottom-tiny form-label">Description</label>
+            <textarea id="description" name="description" placeholder="{{ activityInfo.description }}" class="max-width400">{{ activityInfo.description }}</textarea>
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <label for="act_date" class="margin-bottom-tiny form-label">Activity Date</label>
+            <input type="date" id="act_date" name="act_date" class="max-width400" value="{{ activityInfo.act_date }}"/>
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <label for="distance" class="margin-bottom-tiny form-label">Distance</label>
+            <input type="number" name="distance" id="distance" step="0.001" class="max-width400" value="{{ activityInfo.distance }}"/>
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <div class="margin-bottom-tiny form-label">Time</div>
+            <div class="flex-row">
+                <div class="flex-column">
+                    <label for="hours" class="margin-bottom-tiny form-label">Hours</label>
+                    <input type="number" min="0" step="1" name="hours" id="hours" class="max-width120" value="{{ formData.hours }}"/>
+                </div>
+                <div class="flex-column">
+                    <label for="minutes" class="margin-bottom-tiny form-label">Minutes</label>
+                    <input type="number" min="0" max="59" step="1" name="minutes" id="minutes" class="max-width120" value="{{ formData.minutes }}"/>
+                </div>
+                <div class="flex-column">
+                    <label for="seconds" class="margin-bottom-tiny form-label">Seconds</label>
+                    <input type="number" min="0" max="59.99" step="0.01" name="seconds" id="seconds" class="max-width120" value="{{ formData.seconds }}" />
+                </div>
+            </div>
+        </div>
+        <div class="flex-column margin-bottom-tiny">
+            <div class="margin-bottom-tiny form-label">Activity Type Details</div>
+            <div class="flex-row space-evenly">
+                <div class="flex-column">
+                    <label for="type_id" class="margin-bottom-tiny form-label">Activity Type</label>
+                    <select id="type_id" name="type_id">
+                        <option value="0" {{#if formData.aType.run }}selected="selected"{{/if}}>Run</option>
+                        <option value="1" {{#if formData.aType.bike }}selected="selected"{{/if}}>Bike Ride</option>
+                        <option value="2" {{#if formData.aType.swim }}selected="selected"{{/if}}>Swim</option>
+                        <option value="3" {{#if formData.aType.walk }}selected="selected"{{/if}}>Walk</option>
+                        <option value="4" {{#if formData.aType.hike }}selected="selected"{{/if}}>Hike</option>
+                    </select>
+                </div>
+                <div class="flex-column">
+                    <label for="dist_type_id" class="margin-bottom-tiny form-label">Distance Type</label>
+                    <select id="dist_type_id" name="dist_type_id">
+                        <option value="0" {{#if formData.dType.miles}}selected="selected"{{/if}}>Miles</option>
+                        <option value="1" {{#if formData.dType.km}}selected="selected"{{/if}}>Kilometers</option>
+                        <option value="2" {{#if formData.dType.meters}}selected="selected"{{/if}}>Meters</option>
+                        <option value="3" {{#if formData.dType.yards}}selected="selected"{{/if}}>Yards</option>
+                    </select>
+                </div>
+                <div class="flex-column">
+                    <label for="effort_type_id" class="margin-bottom-tiny form-label">Effort Level</label>
+                    <select id="effort_type_id" name="effort_type_id">
+                        <option value="0" {{#if formData.eType.easy }}selected="selected"{{/if}}>Easy</option>
+                        <option value="1" {{#if formData.eType.hard }}selected="selected"{{/if}}>Hard</option>
+                        <option value="2" {{#if formData.eType.race }}selected="selected"{{/if}}>Race</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+        <div>
+            <input type="hidden" id="user_id" name="user_id" value="{{ user_id }}" />
+        </div>
+        <button type="submit" class="site-btn-1">Edit Historical Activity!</button>
+    </form>
+</div>
+{{#if activityInfo.hasLaps }}
+<div class="flex-column align-items-center margin-bottom-tiny">
+    <h2 class="secondary-header">Current Split Information</h2>
+    <ul class="no-type">
+        {{#each lapArrays }}
+            {{> lap-mapping }}
+        {{/each}}
+    </ul>
+    <p class="width-40-big margin-bottom-tiny"><i>Remember that if you upload new splits, these splits will be deleted.  If you wish to assign new splits and keep these splits, you will have to create a duplicate activity.  You can also just delete these current splits with the button below.</i></p>
+    <form class="flex-column align-items-center" id="delete-splits">
+        <button class="site-btn-1">Delete Splits</button>
+    </form>
+</div>
+    
+{{/if}}
+<div class="flex-column align-items-center margin-bottom-tiny">
+    <h2 class="secondary-header">Add Splits</h2>
+    <div class="flex-row flex-column-small">
+        <div>
+            <form class="bgColor6 padding-all-tiny box-shadow-tiny flex-column" id="registerSplit">
+                <div class="flex-column margin-bottom-tiny">
+                    <label for="split-distance" class="margin-bottom-tiny form-label">Distance</label>
+                    <input type="number" name="split-distance" id="split-distance" step="0.001" class="max-width400" />
+                </div>
+                <div class="flex-column margin-bottom-tiny">
+                    <div class="margin-bottom-tiny form-label">Time</div>
+                    <div class="flex-row">
+                        <div class="flex-column">
+                            <label for="split-hours" class="margin-bottom-tiny form-label">Hours</label>
+                            <input type="number" min="0" step="1" name="split-hours" id="split-hours" class="max-width120" />
+                        </div>
+                        <div class="flex-column">
+                            <label for="split-minutes" class="margin-bottom-tiny form-label">Minutes</label>
+                            <input type="number" min="0" max="59" step="1" name="split-minutes" id="split-minutes" class="max-width120" />
+                        </div>
+                        <div class="flex-column">
+                            <label for="split-seconds" class="margin-bottom-tiny form-label">Seconds</label>
+                            <input type="number" min="0" max="59.99" step="0.01" name="split-seconds" id="split-seconds" class="max-width120" />
+                        </div>
+                    </div>
+                </div>
+                <div class="flex-column margin-bottom-tiny">
+                    <div class="margin-bottom-tiny form-label">Activity Type Details</div>
+                    <div class="flex-row space-evenly">
+                        <div class="flex-column">
+                            <label for="split_type_id" class="margin-bottom-tiny form-label">Activity Type</label>
+                            <select id="split_type_id" name="split_type_id">
+                                <option value="0">Run</option>
+                                <option value="1">Bike Ride</option>
+                                <option value="2">Swim</option>
+                                <option value="3">Walk</option>
+                                <option value="4">Hike</option>
+                            </select>
+                        </div>
+                        <div class="flex-column">
+                            <label for="split_dist_type_id" class="margin-bottom-tiny form-label">Distance Type</label>
+                            <select id="split_dist_type_id" name="split_dist_type_id">
+                                <option value="0">Miles</option>
+                                <option value="1">Kilometers</option>
+                                <option value="2">Meters</option>
+                                <option value="3">Yards</option>
+                            </select>
+                        </div>
+                        <div class="flex-column">
+                            <label for="split_effort_type_id" class="margin-bottom-tiny form-label">Effort Level</label>
+                            <select id="split_effort_type_id" name="split_effort_type_id">
+                                <option value="0">Easy</option>
+                                <option value="1">Hard</option>
+                                <option value="2">Race</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <button class="site-btn-1">Register Split</button>
+            </form>
+        </div>
+        <div class="flex-column margin-left-small no-horizontal-margin">
+            <h3 class="tertiary-header">Splits Registered</h3>
+            <div class="margin-bottom-tiny">
+                <button class="site-btn-1" id="clear-last">Clear Last</button>
+                <button class="site-btn-1" id="clear-all">Clear All</button>
+            </div>
+            <div id="splitsRegistered"></div>
+            <form id="splits-submit" class="padding-all-tiny flex-column">
+                <button type="submit" class="site-btn-1">Submit Splits!</button>
+            </form>
+        </div>
+    </div>
+</div>
+{{!-- Activity Info: {{ stringifyData activityInfo }}
+<br />
+Form Data: {{ stringifyData formData }}
+<br />
+Split Arrays: {{ stringifyData splitArrays }} --}}
+
+{{#if activityInfo.hasLaps }}
+
+{{/if}}

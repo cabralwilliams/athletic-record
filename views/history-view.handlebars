@@ -1,0 +1,59 @@
+<div class="flex-row space-evenly">
+    <div class="flex-column-small">
+        <h2 class="secondary-header">{{ formattedData.title }}</h2>
+        <h3 class="tertiary-header">{{ formatDate formattedData.act_date }}</h3>
+        <div>
+            <blockquote class="description-blockquote">
+                {{ formattedData.description }}
+            </blockquote>
+        </div>
+        <div class="flex-column-small">
+            <h3 class="tertiary-header">Activity Summary</h3>
+            <p class="p-detail">Distance: {{ formattedData.activityStats.primary.distance }} {{ formattedData.activityStats.primary.unit1 }}</p>
+            <p class="p-detail">Time: {{ formatTime formattedData.duration }}</p>
+            <p class="p-detail">Pace: {{ formatTime formattedData.activityStats.primary.pace }} {{ formattedData.activityStats.primary.unit2 }}</p>
+            <h3 class="tertiary-header">Converted</h3>
+            <p class="p-detail">Distance: {{ truncateNumber formattedData.activityStats.secondary.distance }} {{ formattedData.activityStats.secondary.unit1 }} | Pace: {{ formatTime formattedData.activityStats.secondary.pace }} {{ formattedData.activityStats.secondary.unit2 }}</p>
+            <p class="p-detail">Distance: {{ truncateNumber formattedData.activityStats.tertiary.distance }} {{ formattedData.activityStats.tertiary.unit1 }} | Pace: {{ formatTime formattedData.activityStats.tertiary.pace }} {{ formattedData.activityStats.tertiary.unit2 }}</p>
+            <p class="p-detail">Distance: {{ truncateNumber formattedData.activityStats.quaternary.distance }} {{ formattedData.activityStats.quaternary.unit1 }} | Pace: {{ formatTime formattedData.activityStats.quaternary.pace }} {{ formattedData.activityStats.quaternary.unit2 }}</p>
+        </div>
+        {{#if formattedData.hasSplits }}
+            <div>
+                <h3 class="tertiary-header">Splits</h3>
+            </div>
+            <ul class="no-type">
+                {{#each splitGroups }}
+                    <li>
+                        {{> split-mapping }}
+                    </li>
+                {{/each}}
+            </ul>
+        {{/if}}
+    </div>
+    <div class="flex-column">
+        <h3 class="tertiary-header">Comments</h3>
+        {{#each formattedData.comments }}
+            <div class="flex-column margin-bottom-tiny">
+                <blockquote class="description-blockquote">{{comment_text}}</blockquote>
+                <p class="p-detail">Posted by <a href="/users/{{user.id}}">{{user.username}}</a></p>
+            </div>
+        {{/each}}
+        {{#if loggedIn }}
+            <h3 class="tertiary-header">Add Comment</h3>
+            <form class="bgColor6 padding-all-tiny box-shadow-tiny flex-column" id="comment-form">
+                <div class="flex-column margin-bottom-tiny">
+                    <label for="comment_text" class="margin-bottom-tiny form-label">Your Comment</label>
+                    <textarea id="comment_text" name="comment_text" placeholder="Say something!"></textarea>
+                </div>
+                <input type="hidden" name="user_id" id="user_id" value="{{ user_id }}" />
+                <button type="submit" class="site-btn-1">Submit Comment!</button>
+            </form>
+        {{/if}}
+    </div>
+</div>
+{{#if formattedData.hasSplits }}
+    
+{{/if}}
+{{#if loggedIn }}
+    
+{{/if}}

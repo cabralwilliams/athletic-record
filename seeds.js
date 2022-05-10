@@ -1,5 +1,5 @@
 const sequelize = require('./config/connection');
-const { User, Activity, Split, Comment, Follower } = require('./models');
+const { User, Activity, Split, Comment, Follower, History, Lap } = require('./models');
 
 const users = [
     {
@@ -120,6 +120,39 @@ const splits = [
     }
 ];
 
+const histories = [
+    {
+        title: "Women's Outdoor Distance Medley World Record",
+        description: "Current world record set by US team of Moser (1200), Richards-Ross (400), Wilson (800), and Rowbury (1600) on May 2, 2015",
+        effort_type_id: 2,
+        act_date: new Date(2015,4,2),
+        distance: 4,
+        duration: 636.5,
+        type_id: 0,
+        dist_type_id: 1
+    },
+    {
+        title: "David Rudisha's Current 800-meter World Record",
+        description: "David Rudisha proves that he is the greatest ever at the 800-meter distance at 2012 London Olympics, breaking his own world record and pacing many other records/personal bests.",
+        effort_type_id: 2,
+        act_date: new Date(2012,7,9),
+        distance: 800,
+        duration: 100.91,
+        type_id: 0,
+        dist_type_id: 2
+    },
+    {
+        title: "Janet Evans - 1989 Pan Pacific 800 meters",
+        description: "The legendary Janet Evans sets a world record in the 800-meter freestyle that would last almost 19 years",
+        effort_type_id: 2,
+        act_date: new Date(1989,7,20),
+        distance: 800,
+        duration: 496.22,
+        type_id: 2,
+        dist_type_id: 2
+    }
+]
+
 const comments = [
     {
         comment_text: "That was an extremely fast race, Cab!",
@@ -165,6 +198,7 @@ const seedActivities = () => Activity.bulkCreate(activities);
 const seedSplits = () => Split.bulkCreate(splits);
 const seedComments = () => Comment.bulkCreate(comments);
 const seedFollowers = () => Follower.bulkCreate(followers);
+const seedHistory = () => History.bulkCreate(histories);
 
 const seedAll = async () => {
     await sequelize.sync({ force: true });
@@ -184,6 +218,9 @@ const seedAll = async () => {
 
     await seedFollowers();
     console.log('\n---- Followers Seeded -----\n');
+
+    await seedHistory();
+    console.log('\n----- History Seeded ------\n');
 }
 
 seedAll();

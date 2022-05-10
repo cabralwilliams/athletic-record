@@ -1,0 +1,14 @@
+<div class="margin-bottom-tiny">
+    <div>
+        <a href="/history/{{ id }}">{{ title }} | {{ formatDate act_date }} | {{ activity_Type }} - {{ distance }} {{ units }} | {{ formatTime duration }}</a>
+    </div>
+    <div>
+        <p>
+            {{#if hasSplits}}
+                Splits Provided!
+            {{else}}
+                No Splits Provided!
+            {{/if}}
+        </p>
+    </div>
+</div>
