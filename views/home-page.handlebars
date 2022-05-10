@@ -1,3 +1,12 @@
-{{#each activities }}
-    {{> title-user-date }}
-{{/each}}
+<div class="flex-column align-items-center">
+    <h2 class="secondary-header">Welcome!</h2>
+    <p class="width-80 margin-bottom-tiny">
+        Feel free to explore the athletic activities listed here or create an 
+        account and start entering activities of your own!  There is also a 
+        history section of this application that contain important historical 
+        athletic performances.
+    </p>
+    {{#each activities }}
+        {{> title-user-date }}
+    {{/each}}
+</div>

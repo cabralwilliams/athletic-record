@@ -16,7 +16,21 @@ router.get("/", (req, res) => {
     .catch(err => {
         console.log(err);
         res.status(500).json(err);
-    })
+    });
+});
+
+router.put("/edit/:id", (req, res) => {
+    History.update(
+        req.body,
+        {
+            where: { id: req.params.id }
+        }
+    )
+    .then(updatedHistory => res.json(updatedHistory))
+    .catch(err => {
+        console.log(err);
+        res.status(500).json(err);
+    });
 });
 
 

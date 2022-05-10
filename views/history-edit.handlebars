@@ -1,6 +1,6 @@
 <div class="flex-column align-items-center margin-bottom-tiny">
     <h2 class="secondary-header">Historical Activity Edit</h2>
-    <form class="bgColor6 padding-all-tiny box-shadow-tiny flex-column" id="edit-activity-form">
+    <form class="bgColor6 padding-all-tiny box-shadow-tiny flex-column" id="edit-history-form">
         <div class="flex-column margin-bottom-tiny">
             <label for="title" class="margin-bottom-tiny form-label">Title</label>
             <input type="text" id="title" name="title" placeholder="{{ activityInfo.title }}" class="max-width400" value="{{ activityInfo.title }}" />
@@ -166,7 +166,7 @@
 Form Data: {{ stringifyData formData }}
 <br />
 Split Arrays: {{ stringifyData splitArrays }} --}}
-
+<script src="/javascript/editHistory.js"></script>
 {{#if activityInfo.hasLaps }}
 
 {{/if}}

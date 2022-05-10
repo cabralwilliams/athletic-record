@@ -139,6 +139,10 @@ a {
 .space-between {
     justify-content: space-between;
 }
+
+.justify-content-center {
+    justify-content: center;
+}
 /* End flex styling */
 
 /* List Styling */
@@ -188,6 +192,14 @@ a {
 
 .width-40-big {
     max-width: 40%;
+}
+
+.width-80 {
+    width: 80%;
+}
+
+.width-90 {
+    width: 90%;
 }
 /* End width styles */
 
